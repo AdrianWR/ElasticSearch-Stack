@@ -7,39 +7,31 @@ terraform {
   }
 }
 
-# Set the variable value in *.tfvars file
-# or using -var="do_token=..." CLI option
-variable "do_token" {}
-
 # Configure the DigitalOcean Provider
 provider "digitalocean" {
   token = var.do_token
 }
 
-resource "digitalocean_kubernetes_cluster" "k8s-challenge" {
-  name         = "k8s-challenge"
-  region       = "nyc1"
+data "digitalocean_kubernetes_versions" "challenge_version" {
+  version_prefix = "1.21."
+}
+
+resource "digitalocean_kubernetes_cluster" "challenge" {
+  name         = "challenge"
+  region       = "nyc3"
   auto_upgrade = true
-  version      = data.digitalocean_kubernetes_versions.k8s-challenge-version.latest_version
+  version      = data.digitalocean_kubernetes_versions.challenge_version.latest_version
+
+  node_pool {
+    name       = "default"
+    size       = "s-4vcpu-8gb"
+    node_count = 3
+  }
 
   maintenance_policy {
     start_time = "04:00"
     day        = "sunday"
   }
 
-  node_pool {
-    name       = "default"
-    size       = "s-1vcpu-2gb"
-    node_count = 3
-  }
-  tags = ["dev"]
-}
-
-output "cluster_kubeconfig" {
-  value     = digitalocean_kubernetes_cluster.k8s-challenge.kube_config
-  sensitive = true
-}
-
-data "digitalocean_kubernetes_versions" "k8s-challenge-version" {
-  version_prefix = "1.21."
+  tags = [var.environment]
 }
