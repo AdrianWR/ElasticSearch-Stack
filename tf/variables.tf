@@ -8,7 +8,20 @@ variable "environment" {
   default     = "dev"
 }
 
-variable "logging_namespace" {
-  type    = string
-  default = "logging"
+variable "region" {
+  type        = string
+  description = "DO region to deploy the Kubernetes cluster"
+  default     = "sfo3"
+}
+
+variable "node_type" {
+  type        = string
+  description = "DO machine type to deploy worker nodes"
+  default     = "s-4vcpu-8gb"
+}
+
+variable "namespace" {
+  type        = string
+  description = "Kubernetes namespace to deploy EFK stack"
+  default     = "logging"
 }

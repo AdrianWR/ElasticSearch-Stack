@@ -8,26 +8,16 @@ provider "helm" {
   }
 }
 
-#resource "helm_release" "ingress_nginx" {
-#  name             = "ingress-nginx"
-#  repository       = "https://kubernetes.github.io/ingress-nginx"
-#  chart            = "ingress-nginx"
-#  namespace        = "ingress-nginx"
-#  create_namespace = true
-#}
-
 resource "helm_release" "elasticsearch" {
   name             = "elasticsearch"
   repository       = "https://helm.elastic.co"
   chart            = "elasticsearch"
   version          = "7.15.0"
-  namespace        = var.logging_namespace
+  namespace        = var.namespace
   create_namespace = true
   values = [
     <<-EOT
       ---
-      esConfig:
-        xpack.security.enabled: "true"
       volumeClaimTemplate:
         accessModes: ["ReadWriteOnce"]
         storageClassName: "do-block-storage"
@@ -43,7 +33,7 @@ resource "helm_release" "kibana" {
   repository       = "https://helm.elastic.co"
   chart            = "kibana"
   version          = "7.15.0"
-  namespace        = var.logging_namespace
+  namespace        = var.namespace
   create_namespace = true
 }
 
@@ -52,6 +42,6 @@ resource "helm_release" "fluent-bit" {
   repository       = "https://fluent.github.io/helm-charts"
   chart            = "fluent-bit"
   version          = "0.19.15"
-  namespace        = var.logging_namespace
+  namespace        = var.namespace
   create_namespace = true
 }
