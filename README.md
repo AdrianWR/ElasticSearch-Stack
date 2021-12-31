@@ -35,6 +35,14 @@ terraform apply -auto-approve
 
 At the end of the process, which could take several minutes, you may expect a message "Apply Complete!", indicating that the provisioning occurred with success. Now, you have a Digital Ocean Kubernetes cluster with the EFK installed! You may run `terraform output -raw kubeconfig` to fetch the cluster's `kubeconfig`.
 
+# How to Configure
+
+Even if we have the stack deployed, we still can't get the logs on our system. For that, we need to configure the Elasticsearch log index via the Kibana interface. As we don't have a Kibana ingress configured, we can use the `port-forward` feature of the Kubernetes API to make changes to it. Run the following command on the `tf` directory. At we are doing here is port-forwarding ou cluster kibana into the `5601` port of our local machine. Take a look on how we need to specifiy the correct `kubeconfig` and namespace to run the command the right way.
+
+```
+kubectl --kubeconfig <(terraform output -raw kubeconfig) -n logging port-forward deployment/kibana-kibana 5601:5601
+```
+
 # Acknowledgements
 
 - [How To Set Up an Elasticsearch, Fluentd and Kibana (EFK) Logging Stack on Kubernetes](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-elasticsearch-fluentd-and-kibana-efk-logging-stack-on-kubernetes)
