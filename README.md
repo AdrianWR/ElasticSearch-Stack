@@ -11,7 +11,7 @@ Be it a simple webserver with just a few endpoints, to a streaming data platform
 This way, one might think in improving them observability stack with log and metrics monitoring, or even tracing.
 In this repository, one may find a possible solution on how to aggregate metrics on a Digital Ocean deployed Kubernetes cluster, using [FluentBit](https://fluentbit.io/) as a log collector and the [ElasticSeach stack](https://www.elastic.co/pt/elastic-stack/) as the log monitoring system.
 
-Nonetheless, this proejct is my take on the 2021 edition of the Digital Ocean Kubernetes Challenge, so we'll take a lot of its technology here. for more information, one may take a look at [Digital Ocean Kubernetes Challenge](https://www.digitalocean.com/community/pages/kubernetes-challenge).
+Nonetheless, this proejct is my take on the 2021 edition of the Digital Ocean Kubernetes Challenge, so we'll take a lot of its technology here. For more information, one may take a look at [Digital Ocean Kubernetes Challenge](https://www.digitalocean.com/community/pages/kubernetes-challenge).
 
 ## How to Deploy
 
