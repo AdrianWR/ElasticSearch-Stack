@@ -18,7 +18,7 @@ Nonetheless, this proejct is my take on the 2021 edition of the Digital Ocean Ku
 # How to Deploy
 
 This project relies heavily on **Terraform** and Helm to deploy the systems described here. For those unaware, [Terraform](https://www.terraform.io/) is a infrastructure-as-code provisioning tool, enabling us to provision API-managed resources in the simple HCL language, but very powerful at its capabilities. 
-
+If you don't Terraform on your local setup, install it following the instructions at [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started).
 
 By default, the project doesn't have a DO account configured to deploy the infrastructure. To deploy it, one must generate a Digital Ocean access token following the instructions found on [How to Create a Personal Access Token](https://docs.digitalocean.com/reference/api/create-personal-access-token/). Remember to save the token value, as you have only one chance to copy it. Save the token in a variable called `do_token` in a `terraform.tfvars` file (There are other options to save/apply this variable, but personally I find this the easiest one, though it lacks some security).
 
@@ -32,6 +32,8 @@ echo 'do_token = "6cjk17-MY-DO-TOKEN..."' > terraform.tfvars
 terraform init -upgrade
 terraform apply -auto-approve
 ```
+
+At the end of the process, which could take several minutes, you may expect a message "Apply Complete!", indicating that the provisioning occurred with success.
 
 # Acknowledgements
 
