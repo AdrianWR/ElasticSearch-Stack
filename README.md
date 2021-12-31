@@ -24,6 +24,8 @@ By default, the project doesn't have a DO account configured to deploy the infra
 
 First of all, one might need to access the `.tf` files by `cd`'ing into the `tf` directory found at the project's root. Then, the Terraform backend must be initialized, to be later applied its configuration with the `apply` command. Here I'm applying directly with the `-auto-approve` option, but you may find helpful to look through the stack to be deployed before applying (just remove the option).
 
+One may find useful as well to take a look at the [`variables.tf`](./tf/variables.tf) file; here, you may find default options to be used to deploy the stack, such as in which region we are deploying the infrastructure, or the node size selected. 
+
 ```shell
 cd tf
 echo 'do_token = "6cjk17-MY-DO-TOKEN..."' > terraform.tfvars
@@ -32,3 +34,5 @@ terraform apply -auto-approve
 ```
 
 # Acknowledgements
+
+- [How To Set Up an Elasticsearch, Fluentd and Kibana (EFK) Logging Stack on Kubernetes](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-elasticsearch-fluentd-and-kibana-efk-logging-stack-on-kubernetes)
