@@ -43,6 +43,30 @@ Even if we have the stack deployed, we still can't get the logs on our system. F
 kubectl --kubeconfig <(terraform output -raw kubeconfig) -n logging port-forward deployment/kibana-kibana 5601:5601
 ```
 
+Open a browser tab and access the URL [http://localhost:5601](http://localhost:5601). You may see a screen similar as the following one:
+
+![image](https://user-images.githubusercontent.com/18720629/147832889-c1e62830-d2df-4c9e-aceb-204d9b4a14e2.png)
+
+Click on the *Discover* tab at the lateral menu, and at the following page, click on the **Create index pattern** button. At tehe index field, input **logstash-*** as the name, and **@timestamp** at the timestamp field.
+
+![image](https://user-images.githubusercontent.com/18720629/147833100-d48994bb-ec5a-44ea-9545-ade942df29d8.png)
+
+Click again at the *Discover* menu tab. Given everything went right, we may already be taking a look at some indexed logs at our system! :)
+
+---
+
+Let's make some other useful test. I'm taking here a example from [How To Set Up an Elasticsearch, Fluentd and Kibana (EFK) Logging Stack on Kubernetes](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-elasticsearch-fluentd-and-kibana-efk-logging-stack-on-kubernetes), which a reliable source to deploy the stack from the manifest files. Run the following command to deploy a `counter` pod on the `default` namespace. It will log a message every second on the standard output.
+
+```shell
+kubectl --kubeconfig <(terraform output -raw kubeconfig) run counter \
+  --image=busybox -- /bin/sh -c 'i=0; while true; do echo "$i: $(date)"; i=$((i+1)); sleep 1; done'
+```
+
+In the [Kibana](http://localhost:5601/app/discover) interface, apply the filter *kubernetes.pod_name: counter*, and you may be able to take the logs of the new test application deployed.
+
+![image](https://user-images.githubusercontent.com/18720629/147833998-726d0ae7-7bf7-4922-9dea-3a7aa9c1a161.png)
+
+
 # Acknowledgements
 
 - [How To Set Up an Elasticsearch, Fluentd and Kibana (EFK) Logging Stack on Kubernetes](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-elasticsearch-fluentd-and-kibana-efk-logging-stack-on-kubernetes)
