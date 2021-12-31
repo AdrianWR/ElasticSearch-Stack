@@ -33,7 +33,7 @@ terraform init -upgrade
 terraform apply -auto-approve
 ```
 
-At the end of the process, which could take several minutes, you may expect a message "Apply Complete!", indicating that the provisioning occurred with success.
+At the end of the process, which could take several minutes, you may expect a message "Apply Complete!", indicating that the provisioning occurred with success. Now, you have a Digital Ocean Kubernetes cluster with the EFK installed! You may run `terraform output -raw kubeconfig` to fetch the cluster's `kubeconfig`.
 
 # Acknowledgements
 
