@@ -1,7 +1,6 @@
-# ElasticSearch-Stack
-ElasticSearch Stack, running on DO Kubernetes Engine
+# EFK Kubernetes Logging Stack
 
-# Introduction
+## Introduction
 
 Running complex systems is, by not an easy length, a complex task, and please forgive me for this free pun.
 There's this moment in the life of a developer, when we are sharp on writing loops, data structures, APIs, and we need to take a setp further, and glue a lot of stuff together.
@@ -12,10 +11,7 @@ In this repository, one may find a possible solution on how to aggregate metrics
 
 Nonetheless, this proejct is my take on the 2021 edition of the Digital Ocean Kubernetes Challenge, so we'll take a lot of its technology here. for more information, one may take a look at [Digital Ocean Kubernetes Challenge](https://www.digitalocean.com/community/pages/kubernetes-challenge).
 
-# The EFK Stack
-
-
-# How to Deploy
+## How to Deploy
 
 This project relies heavily on **Terraform** and Helm to deploy the systems described here. For those unaware, [Terraform](https://www.terraform.io/) is a infrastructure-as-code provisioning tool, enabling us to provision API-managed resources in the simple HCL language, but very powerful at its capabilities. 
 If you don't Terraform on your local setup, install it following the instructions at [Install Terraform](https://learn.hashicorp.com/tutorials/terraform/install-cli?in=terraform/aws-get-started).
@@ -35,7 +31,7 @@ terraform apply -auto-approve
 
 At the end of the process, which could take several minutes, you may expect a message "Apply Complete!", indicating that the provisioning occurred with success. Now, you have a Digital Ocean Kubernetes cluster with the EFK installed! You may run `terraform output -raw kubeconfig` to fetch the cluster's `kubeconfig`.
 
-# How to Configure
+## How to Configure
 
 Even if we have the stack deployed, we still can't get the logs on our system. For that, we need to configure the Elasticsearch log index via the Kibana interface. As we don't have a Kibana ingress configured, we can use the `port-forward` feature of the Kubernetes API to make changes to it. Run the following command on the `tf` directory. At we are doing here is port-forwarding ou cluster kibana into the `5601` port of our local machine. Take a look on how we need to specifiy the correct `kubeconfig` and namespace to run the command the right way.
 
@@ -65,8 +61,3 @@ kubectl --kubeconfig <(terraform output -raw kubeconfig) run counter \
 In the [Kibana](http://localhost:5601/app/discover) interface, apply the filter *kubernetes.pod_name: counter*, and you may be able to take the logs of the new test application deployed.
 
 ![image](https://user-images.githubusercontent.com/18720629/147833998-726d0ae7-7bf7-4922-9dea-3a7aa9c1a161.png)
-
-
-# Acknowledgements
-
-- [How To Set Up an Elasticsearch, Fluentd and Kibana (EFK) Logging Stack on Kubernetes](https://www.digitalocean.com/community/tutorials/how-to-set-up-an-elasticsearch-fluentd-and-kibana-efk-logging-stack-on-kubernetes)
