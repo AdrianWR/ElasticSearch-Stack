@@ -1,5 +1,7 @@
 # EFK Kubernetes Logging Stack
 
+[![DigitalOcean Referral Badge](https://web-platforms.sfo2.digitaloceanspaces.com/WWW/Badge%202.svg)](https://www.digitalocean.com/?refcode=346ac16c3b26&utm_campaign=Referral_Invite&utm_medium=Referral_Program&utm_source=badge)
+
 ## Introduction
 
 Running complex systems is, by not an easy length, a complex task, and please forgive me for this free pun.
